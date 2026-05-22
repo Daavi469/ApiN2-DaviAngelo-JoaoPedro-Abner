@@ -20,6 +20,8 @@ app.use(express.static(path.join(import.meta.dirname, "public")));
 app.use(mcors);
 app.use(mdebug);
 
+app.use(express.static("public"));
+
 // Rotas API
 app.use("/api", apiRouter);
 app.use("/api", productsRouter);
@@ -48,6 +50,10 @@ app.get("/products", (req, res) => {
   res.render("products", {
     listaProdutos: products,
   });
+});
+
+app.get("/products/:id", (req, res) => {
+  res.render("products-details"); // o cliente obterá os dados via fetch
 });
 
 // Tratamento de erros

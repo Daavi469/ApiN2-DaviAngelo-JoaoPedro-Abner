@@ -1,20 +1,25 @@
-async function carregarProdutos() {
-    const response = await fetch("/api/products");
-    const dados = await response.json();
-  
-    const container = document.getElementById("container-produtos");
-    console.log(dados);
-    container.innerHTML = dados["productsList"]
-      .map(
-        (p) => `
-        <div class="card">
-          <h3>${p.nome}</h3>
-          <p>${p.disponivel ? "Disponível" : "Esgotado"}</p>
-          <a href="/products/${p.id}">Ver detalhes</a>
-        </div>
-      `,
-      )
-      .join("");
+async function carregarDetalhesProduto() {
+  const id = window.location.pathname.split("/").filter(Boolean).pop();
+
+  console.log("ID:", id);
+
+  const response = await fetch(`/api/products/${id}`);
+
+  if (!response.ok) {
+    document.getElementById("container-produto").innerHTML =
+      "<p>Produto não encontrado</p>";
+    return;
   }
-  
-  window.onload = carregarProdutos;
+
+  const produto = await response.json();
+
+  document.getElementById("container-produto").innerHTML = `
+    <div class="card p-3">
+      <h3>${produto.nome}</h3>
+      <p>${produto.disponivel ? "Disponível" : "Esgotado"}</p>
+      <p>ID: ${produto.id}</p>
+    </div>
+  `;
+}
+
+window.onload = carregarDetalhesProduto;

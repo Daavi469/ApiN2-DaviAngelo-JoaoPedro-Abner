@@ -1,33 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtos</title>
-
+<html lang="pt-br">
+  <head>
+    
     <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-    crossorigin="anonymous"
-  />
-  <link rel="stylesheet" href="/public/styles/bootstrap.min.css" />
-  
-</head>
-<body>
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="/styles/styles.css" />
+  </head>
+  <body>
     <h1>Produtos</h1>
 
     <div id="container-produtos" class="container"></div>
-
     <div class="container">
-        <% listaProdutos.forEach(produto => { %>
+      <% listaProdutos.forEach(produto => { %>
         <div class="card">
           <h3><%= produto.nome %></h3>
-      
-          <p>Status: <%= produto.disponivel ? "Em estoque" : "Indisponível" %></p>
-      </div>
-        <% }); %>
-      </div>
-    <script src="scripts/product.js"></script>
-</body>
+    
+          <a href="/products/<%= produto.id %>">
+            Ver detalhes
+          </a>
+    
+          <p>
+            Status:
+            <%= produto.disponivel ? "Em estoque" : "Indisponível" %>
+          </p>
+        </div>
+      <% }); %>
+    </div>
+    <script src="/scripts/products.js"></script>
+  </body>
 </html>
